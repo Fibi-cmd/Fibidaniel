@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Special Someone ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Video Background */
+        .video-background {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            z-index: -1;
+            filter: brightness(0.8);
+        }
+
+        #bgVideo {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            min-width: 100%;
+            min-height: 100%;
+            object-fit: cover;
+        }
+
+        /* Date Display */
+        .date-display {
+            position: fixed;
+            top: 90px; /* Changed from 70px to 90px */
+            right: 30px;
+            color: #fff;
+            font-size: 1.2rem;
+            font-family: 'Poppins', sans-serif;
+            background: rgba(255, 105, 180, 0.3);
+            padding: 8px 15px;
+            border-radius: 20px;
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 50px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .nav-links {
+            display: flex;
+        }
+
+        .nav-link {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 25px;
+            font-size: 1.1rem;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #ff69b4;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Main Content */
+        .content {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
+
+        /* 3D Love Note */
+        .love-note {
+            perspective: 1000px;
+            margin-top: 100px;
+        }
+
+        .note-card {
+            background: rgba(255, 105, 180, 0.9);
+            padding: 40px;
+            border-radius: 15px;
+            transform-style: preserve-3d;
+            transform: rotateY(20deg);
+            transition: all 0.5s ease;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .note-card:hover {
+            transform: rotateY(0deg) translateY(-10px);
+        }
+
+        .note-text {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            transform: translateZ(50px);
+        }
+
+        /* Floating Hearts */
+        .hearts-container {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .heart {
+            position: absolute;
+            color: #ff69b4;
+            animation: float 8s infinite linear;
+            opacity: 0.7;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); }
+            100% { transform: translateY(-100vh) rotate(360deg); }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            background: rgba(255,255,255,0.1);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #ff69b4;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Video Background -->
+    <div class="video-background">
+        <video autoplay muted loop id="bgVideo">
+            <source src="https://fibi-cmd.github.io/Background.mp4/backgroundv.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <!-- Date Display -->
+    <div class="date-display" id="currentDate"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-links">
+            <a href="#home" class="nav-link">Home</a>
+            <a href="text2speech.html" class="nav-link">T2S</a>
+            <a href="cal.html" class="nav-link">Cal.c</a>
+            <a href="learn.html" class="nav-link">Learn</a>
+            <a href="lovecal.html" class="nav-link">Love Cal.c</a>
+            <a href="games.html" class="nav-link">Games</a>
+            <a href="contact.html" class="nav-link">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Floating Hearts -->
+    <div class="hearts-container" id="hearts"></div>
+
+    <!-- Main Content -->
+    <section id="home" class="content">
+        <div class="love-note">
+            <div class="note-card">
+                <h1 class="note-text">Every Moment With You is Special ❤️</h1>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Floating Hearts
+        function createHearts() {
+            const heartsContainer = document.getElementById('hearts');
+            for (let i = 0; i < 50; i++) {
+                const heart = document.createElement('i');
+                heart.className = 'heart fas fa-heart';
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 5 + 's';
+                heartsContainer.appendChild(heart);
+            }
+        }
+        createHearts();
+
+        // Live Date
+        function updateDate() {
+            const options = { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            };
+            document.getElementById('currentDate').textContent = 
+                new Date().toLocaleDateString('en-US', options);
+        }
+        setInterval(updateDate, 1000);
+        updateDate();
+
+        // Link Handling
+        document.querySelectorAll('.nav-link').forEach(link => {
+            if(link.getAttribute('href').startsWith('#')) {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const target = document.querySelector(link.getAttribute('href'));
+                    target.scrollIntoView({ behavior: 'smooth' });
+                });
+            } else {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    window.location.href = link.getAttribute('href');
+                });
+            }
+        });
+
+        // Parallax Effect
+        document.addEventListener('mousemove', (e) => {
+            const cards = document.querySelectorAll('.note-card');
+            cards.forEach(card => {
+                const speed = 15;
+                const x = (window.innerWidth - e.pageX * speed) / 100;
+                const y = (window.innerHeight - e.pageY * speed) / 100;
+                card.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
+            });
+        });
+
+        // Background Music (Uncomment to add)
+        // const audio = new Audio('romantic-music.mp3');
+        // audio.loop = true;
+        // document.addEventListener('click', () => audio.play());
+    </script>
+</body>
+</html>
