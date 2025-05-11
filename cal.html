@@ -6,6 +6,23 @@ Fibi Daniel
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Scientific Calculator for Fibi Daniel</title>
   <style>
+  .navbar {
+    position: fixed;   /* sticks it */
+    top: 0; left: 0;   /* at top of screen */
+    width: 100%;       /* full width */
+    padding: 20px;
+    background: rgba(0,0,0,0.5);
+    z-index: 1000;
+  }
+  .navbar .nav-link {
+    color: white;
+    margin-right: 15px;
+    text-decoration: none;
+  }
+  /* make room so your content isn’t hidden under the navbar */
+  .page-content {
+    margin-top: 80px; /* same or slightly larger than your navbar’s height */
+  }
     /* Body & Container */
     body {
       background: linear-gradient(135deg, #ff7eb3, #ff758c);
@@ -116,6 +133,15 @@ Fibi Daniel
   </style>
 </head>
 <body>
+  <nav class="navbar">
+    <a href="index.html" class="nav-link">Home</a>
+    <a href="text2speech.html" class="nav-link">T2S</a>
+    <a href="cal.html" class="nav-link">Cal.c</a>
+    <a href="learn.html" class="nav-link">Learn</a>
+    <a href="lovecal.html" class="nav-link">Love Cal.c</a>
+    <a href="games.html" class="nav-link">Games</a>
+    <a href="contact.html" class="nav-link">Contact</a>
+  </nav>
   <div class="container">
     <!-- Love Banner with Animated Name and Heart -->
     <div class="love-banner">
