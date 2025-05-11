@@ -1,0 +1,228 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Premium 3D Signup Page</title>
+  <style>
+    /* ===== Page & Animated Gradient Background ===== */
+    html, body {
+      margin: 0; padding: 0;
+      width: 100%; height: 100%;
+      overflow: hidden;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(-45deg, #0d1b2a, #1b263b, #415a77, #778da9);
+      background-size: 400% 400%;
+      animation: gradientBG 20s ease infinite;
+    }
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }/* ===== 3D Cube Background (Non-interactive) ===== */
+.scene {
+  position: absolute; top: 50%; left: 50%;
+  width: 300px; height: 300px;
+  transform: translate(-50%, -50%);
+  perspective: 800px;
+  pointer-events: none;
+  opacity: 0.6;
+}
+.cube {
+  width: 200px; height: 200px;
+  position: relative; margin: auto;
+  transform-style: preserve-3d;
+  animation: spin 15s infinite linear;
+}
+.cube .face {
+  position: absolute;
+  width: 200px; height: 200px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.2);
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+.front  { transform: translateZ(100px); }
+.back   { transform: rotateY(180deg) translateZ(100px); }
+.right  { transform: rotateY( 90deg) translateZ(100px); }
+.left   { transform: rotateY(-90deg) translateZ(100px); }
+.top    { transform: rotateX( 90deg) translateZ(100px); }
+.bottom { transform: rotateX(-90deg) translateZ(100px); }
+@keyframes spin {
+  from { transform: rotateX(0) rotateY(0); }
+  to   { transform: rotateX(360deg) rotateY(360deg); }
+}
+
+/* ===== Form Container ===== */
+.form-container {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0,0,0,0.7);
+  padding: 40px; border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+  width: 360px;
+  color: #f0f0f0;
+}
+.form-container h2 {
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 28px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  animation: glowText 3s ease-in-out infinite alternate,
+             typingText 4s steps(20) infinite;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 2px solid rgba(240,240,240,0.75);
+}
+@keyframes typingText {
+  0%, 50% { width: 0; }
+  51%,100% { width: 100%; }
+}
+@keyframes glowText {
+  from { text-shadow: 0 0 10px #ff7e5f, 0 0 20px #feb47b; color: #feb47b; }
+  to   { text-shadow: 0 0 20px #78ffd6, 0 0 30px #a8ff78; color: #78ffd6; }
+}
+.form-container input {
+  width: 100%; margin-bottom: 15px;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.form-container input:focus {
+  outline: none;
+  transform: scale(1.02);
+  box-shadow: 0 0 8px rgba(255,255,255,0.6);
+}
+.form-container button {
+  width: 100%; padding: 14px;
+  border: none; border-radius: 8px;
+  font-size: 18px; font-weight: bold;
+  cursor: pointer;
+  background: linear-gradient(45deg, #ff7e5f, #feb47b);
+  color: #111;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  transition: background 0.3s, transform 0.2s;
+}
+.form-container button:hover {
+  background: linear-gradient(45deg, #feb47b, #ff7e5f);
+  transform: scale(1.02);
+}
+
+/* ===== Inline Error Message ===== */
+.error-message {
+  color: #ff4d4f;
+  font-size: 14px;
+  margin-top: 10px;
+  text-align: center;
+}
+
+/* ===== Error Modal ===== */
+.modal {
+  display: none; position: fixed; top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.8);
+  justify-content: center; align-items: center;
+}
+.modal-content {
+  background: #1b263b;
+  padding: 24px;
+  border-radius: 12px;
+  text-align: center;
+  color: #e0e0e0;
+  max-width: 320px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+}
+.modal-content p {
+  margin-bottom: 20px;
+  font-size: 18px;
+  line-height: 1.5;
+  animation: glowText 3s ease-in-out infinite alternate;
+}
+.modal-content button {
+  padding: 10px 20px;
+  border: none; border-radius: 6px;
+  cursor: pointer;
+  background: #ff7e5f;
+  color: #fff;
+  font-size: 16px;
+  transition: background 0.3s, transform 0.2s;
+  animation: glowText 4s ease-in-out infinite alternate;
+}
+.modal-content button:hover {
+  background: #feb47b;
+}
+
+/* ===== Header & Footer ===== */
+.header, .footer {
+  position: absolute; width: 100%; text-align: center;
+  color: #fff; font-size: 20px;
+  animation: glowText 5s ease-in-out infinite alternate,
+             typingText 6s steps(40) infinite;
+  white-space: nowrap; overflow: hidden;
+  border-right: 2px solid rgba(255,255,255,0.75);
+}
+.header { top: 20px; }
+.footer { bottom: 20px; }
+
+  </style>
+</head>
+<body>  <!-- Header Typing Glow Text -->  <div class="header">Welcome to the Next-Gen Experience</div>  <!-- 3D Rotating Cube -->  <div class="scene">
+    <div class="cube">
+      <div class="face front"></div>
+      <div class="face back"></div>
+      <div class="face right"></div>
+      <div class="face left"></div>
+      <div class="face top"></div>
+      <div class="face bottom"></div>
+    </div>
+  </div>  <!-- Signup Form -->  <div class="form-container">
+    <form id="signupForm" novalidate>
+      <h2>Sign Up</h2>
+      <input type="text" id="firstName" placeholder="First Name" />
+      <input type="text" id="lastName" placeholder="Surname" />
+      <button type="submit">Sign Up</button>
+      <div id="inlineError" class="error-message"></div>
+    </form>
+  </div>  <!-- Footer Typing Glow Text -->  <div class="footer">Secure. Stunning. Simple.</div>  <!-- Error Modal -->  <div id="errorModal" class="modal">
+    <div class="modal-content">
+      <p>Hello! Beautiful ❤️ your name is Fibi Daniel, please use your real name.<br/>e.g. First name Daniel, Surname Fibi 😊</p>
+      <button id="closeBtn">OK</button>
+    </div>
+  </div>  <script>
+    const form = document.getElementById('signupForm');
+    const inlineError = document.getElementById('inlineError');
+    const modal = document.getElementById('errorModal');
+    const closeBtn = document.getElementById('closeBtn');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      inlineError.textContent = '';
+
+      const first = document.getElementById('firstName').value.trim();
+      const last  = document.getElementById('lastName').value.trim();
+
+      if (!first || !last) {
+        inlineError.textContent = 'Fibi, please fill in the data to continue';
+        return;
+      }
+
+      if (first.toLowerCase() === 'daniel' && last.toLowerCase() === 'fibi') {
+        window.location.href = 'main.html';
+      } else {
+        modal.style.display = 'flex';
+        closeBtn.focus();
+      }
+    });
+
+    closeBtn.addEventListener('click', function() {
+      modal.style.display = 'none';
+    });
+
+    ['firstName', 'lastName'].forEach(id => {
+      document.getElementById(id).addEventListener('input', () => {
+        inlineError.textContent = '';
+      });
+    });
+  </script></body>
+</html>
