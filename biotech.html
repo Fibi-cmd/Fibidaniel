@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cibiyar Ƙirƙira ta BioTech</title>
+    <style>
+        /* Luxury Dark Theme CSS */
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #1a1a1a;
+            color: #e6e6e6;
+        }
+
+        .nav {
+            background: linear-gradient(45deg, #2c3e50, #3498db);
+            padding: 1.5rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav h1 {
+            margin: 0;
+            color: #fff;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .lang-toggle {
+            background: #FFD700;
+            color: #2c3e50;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .container {
+            margin-top: 100px;
+            padding: 2rem;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 20px;
+        }
+
+        .project-card {
+            background: #2d2d2d;
+            border-radius: 15px;
+            padding: 1.5rem;
+            transition: transform 0.3s;
+            cursor: pointer;
+            border: 1px solid #3498db;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            background: #363636;
+        }
+
+        .project-card h2 {
+            color: #3498db;
+            margin-top: 0;
+        }
+
+        .detail-section {
+            display: none;
+            background: rgba(0,0,0,0.9);
+            padding: 2rem;
+            border-radius: 10px;
+            margin-top: 20px;
+            border-left: 5px solid #3498db;
+        }
+
+        .close-btn {
+            float: right;
+            cursor: pointer;
+            color: #fff;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .step {
+            margin: 15px 0;
+            padding: 10px;
+            background: #252525;
+            border-radius: 5px;
+        }
+
+        .gold-text {
+            color: #FFD700;
+        }
+
+        .teal-text {
+            color: #20B2AA;
+        }
+
+        @media (max-width: 768px) {
+            .project-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <h1 class="lang-en">🔬 BioTech Innovations Hub</h1>
+        <h1 class="lang-ha" style="display: none;">🔬 Cibiyar Ƙirƙira ta BioTech</h1>
+        <button class="lang-toggle" onclick="toggleLanguage()">HAUSA</button>
+    </nav>
+
+    <div class="container">
+        <div class="project-grid">
+            <!-- Detailed Projects -->
+            <div class="project-card" onclick="toggleDetail('fish-eggs')">
+                <h2 class="lang-en">🐟 Fish Egg Hatching</h2>
+                <h2 class="lang-ha" style="display: none;">🐟 Ƙyanƙyashe Ƙwai na Kifi</h2>
+                <p class="teal-text lang-en">Professional aquaculture techniques</p>
+                <p class="teal-text lang-ha" style="display: none;">Fasahohin kiwon kifaye na ƙwararru</p>
+            </div>
+
+            <div class="project-card" onclick="toggleDetail('chicken-eggs')">
+                <h2 class="lang-en">🐔 Chicken Egg Incubation</h2>
+                <h2 class="lang-ha" style="display: none;">🐔 Ƙyanƙyashe Ƙwai na Kaza</h2>
+                <p class="gold-text lang-en">Premium poultry solutions</p>
+                <p class="gold-text lang-ha" style="display: none;">Mafita na kiwon kaji na musamman</p>
+            </div>
+
+            <div class="project-card" onclick="toggleDetail('incubator')">
+                <h2 class="lang-en">⚙️ Smart Incubator Build</h2>
+                <h2 class="lang-ha" style="display: none;">⚙️ Gina Inkwaba Mai Hikima</h2>
+                <p class="teal-text lang-en">Advanced incubation systems</p>
+                <p class="teal-text lang-ha" style="display: none;">Tsarin ƙyanƙyashe ƙwai na ci-gaba</p>
+            </div>
+
+            <!-- Placeholder Projects -->
+            <div class="project-card">
+                <h2 class="lang-en">🧪 Ovaprine Injection</h2>
+                <h2 class="lang-ha" style="display: none;">🧪 Allurar Ovaprine</h2>
+                <p class="gold-text lang-en">Content coming soon</p>
+                <p class="gold-text lang-ha" style="display: none;">Abubuwan zuwa nan ba da daɗewa ba</p>
+            </div>
+
+            <div class="project-card">
+                <h2 class="lang-en">💧 Hydro Power</h2>
+                <h2 class="lang-ha" style="display: none;">💧 Wutar Ruwa</h2>
+                <p class="teal-text lang-en">Content coming soon</p>
+                <p class="teal-text lang-ha" style="display: none;">Abubuwan zuwa nan ba da daɗewa ba</p>
+            </div>
+
+            <div class="project-card">
+                <h2 class="lang-en">🔋 Battery Tech</h2>
+                <h2 class="lang-ha" style="display: none;">🔋 Fasahar Baturi</h2>
+                <p class="gold-text lang-en">Content coming soon</p>
+                <p class="gold-text lang-ha" style="display: none;">Abubuwan zuwa nan ba da daɗewa ba</p>
+            </div>
+        </div>
+
+        <!-- Detailed Sections -->
+        <div id="fish-eggs-en" class="detail-section lang-en">
+            <span class="close-btn" onclick="toggleDetail('fish-eggs-en')">×</span>
+            <h2>🐟 Professional Fish Egg Hatching</h2>
+            <div class="step">
+                <h3>1. Water Preparation</h3>
+                <p>Maintain pH 6.5-7.5 • Temperature 28°C • Use methylene blue (1mg/L)</p>
+            </div>
+            <div class="step">
+                <h3>2. Egg Selection</h3>
+                <p>Choose translucent eggs • Remove white opaque eggs • Density: 2-3 eggs/cm²</p>
+            </div>
+            <div class="step">
+                <h3>3. Incubation Protocol</h3>
+                <p>Water flow 0.5L/min • 16h light/8h dark cycle • Oxygen >6mg/L</p>
+            </div>
+        </div>
+
+        <div id="fish-eggs-ha" class="detail-section lang-ha" style="display: none;">
+            <span class="close-btn" onclick="toggleDetail('fish-eggs-ha')">×</span>
+            <h2>🐟 Ƙyanƙyashe Ƙwai na Kifi</h2>
+            <div class="step">
+                <h3>1. Shirya Ruwa</h3>
+                <p>Kiwo pH 6.5-7.5 • Zazzabi 28°C • Amfani da methylene blue (1mg/L)</p>
+            </div>
+            <div class="step">
+                <h3>2. Zaɓen Ƙwai</h3>
+                <p>Zaɓi ƙwai masu haske • Cire ƙwai masu launin fari • Yawa: ƙwai 2-3/cm²</p>
+            </div>
+            <div class="step">
+                <h3>3. Tsarin Ƙyanƙyashe</h3>
+                <p>Kwararar ruwa 0.5L/min • Hasken rana 16h/duhu 8h • Oxygen >6mg/L</p>
+            </div>
+        </div>
+
+        <div id="chicken-eggs-en" class="detail-section lang-en">
+            <span class="close-btn" onclick="toggleDetail('chicken-eggs-en')">×</span>
+            <h2>🐔 Premium Chicken Incubation</h2>
+            <div class="step">
+                <h3>1. Egg Preparation</h3>
+                <p>Store <48hrs • 13-18°C • 75% humidity • Never wash eggs</p>
+            </div>
+            <div class="step">
+                <h3>2. Incubation Setup</h3>
+                <p>Days 1-18: 37.5°C • 60% humidity • Turn 3x daily</p>
+                <p>Days 19-21: 37.2°C • 70% humidity • Stop turning</p>
+            </div>
+            <div class="step">
+                <h3>3. Hatching Protocol</h3>
+                <p>Increase O₂ levels • Maintain darkness • First pipping at 490hrs</p>
+            </div>
+        </div>
+
+        <div id="chicken-eggs-ha" class="detail-section lang-ha" style="display: none;">
+            <span class="close-btn" onclick="toggleDetail('chicken-eggs-ha')">×</span>
+            <h2>🐔 Ƙyanƙyashe Ƙwai na Kaza</h2>
+            <div class="step">
+                <h3>1. Shirya Ƙwai</h3>
+                <p>Ajiye <48hrs • 13-18°C • Danshi 75% • Kada a wanke ƙwai</p>
+            </div>
+            <div class="step">
+                <h3>2. Tsarin Ƙyanƙyashe</h3>
+                <p>Kwanaki 1-18: 37.5°C • Danshi 60% • Juya sau 3 a rana</p>
+                <p>Kwanaki 19-21: 37.2°C • Danshi 70% • Daina juyawa</p>
+            </div>
+            <div class="step">
+                <h3>3. Tsarin Hatching</h3>
+                <p>Ƙara yawan O₂ • Ci gaba da duhu • Farkon fashewa a cikin sa'o'i 490</p>
+            </div>
+        </div>
+
+        <div id="incubator-en" class="detail-section lang-en">
+            <span class="close-btn" onclick="toggleDetail('incubator-en')">×</span>
+            <h2>⚙️ Advanced Incubator Build</h2>
+            <div class="step">
+                <h3>Materials Needed:</h3>
+                <p>- STM32 microcontroller<br>
+                   - 100W PTC heater<br>
+                   - Ultrasonic humidifier<br>
+                   - 12V DC motor for turning<br>
+                   - DHT22 sensor</p>
+            </div>
+            <div class="step">
+                <h3>Assembly Guide:</h3>
+                <p>1. Insulate 60L container with 50mm foam<br>
+                   2. Install heater+fan circulation system<br>
+                   3. Program PID temperature control<br>
+                   4. Set automatic turning mechanism</p>
+            </div>
+        </div>
+
+        <div id="incubator-ha" class="detail-section lang-ha" style="display: none;">
+            <span class="close-btn" onclick="toggleDetail('incubator-ha')">×</span>
+            <h2>⚙️ Gina Inkwaba Mai Hikima</h2>
+            <div class="step">
+                <h3>Kayan Aiki:</h3>
+                <p>- STM32 microcontroller<br>
+                   - Hita na PTC 100W<br>
+                   - Na'urar humidifier ta Ultrasonic<br>
+                   - Injin DC 12V don juyawa<br>
+                   - Na'urar ganowa DHT22</p>
+            </div>
+            <div class="step">
+                <h3>Hanyar Gina:</h3>
+                <p>1. Rufe akwati na 60L da foam 50mm<br>
+                   2. Shigar da tsarin hita da fan<br>
+                   3. Shirya tsarin kula da zazzabi (PID)<br>
+                   4. Kafa tsarin juyawa ta atomatik</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentLang = 'en';
+
+        function toggleLanguage() {
+            const elementsEn = document.querySelectorAll('.lang-en');
+            const elementsHa = document.querySelectorAll('.lang-ha');
+            const langToggle = document.querySelector('.lang-toggle');
+            
+            if(currentLang === 'en') {
+                elementsEn.forEach(el => el.style.display = 'none');
+                elementsHa.forEach(el => el.style.display = 'block');
+                langToggle.textContent = 'ENGLISH';
+                currentLang = 'ha';
+            } else {
+                elementsHa.forEach(el => el.style.display = 'none');
+                elementsEn.forEach(el => el.style.display = 'block');
+                langToggle.textContent = 'HAUSA';
+                currentLang = 'en';
+            }
+            
+            // Close all open detail sections
+            document.querySelectorAll('.detail-section').forEach(section => {
+                section.style.display = 'none';
+            });
+        }
+
+        function toggleDetail(projectBaseId) {
+            const projectId = `${projectBaseId}-${currentLang}`;
+            const detailSection = document.getElementById(projectId);
+            const allSections = document.querySelectorAll('.detail-section');
+            
+            allSections.forEach(section => {
+                if(section.id !== projectId) section.style.display = 'none';
+            });
+
+            detailSection.style.display = 
+                detailSection.style.display === 'block' ? 'none' : 'block';
+            
+            if(detailSection.style.display === 'block') {
+                detailSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    </script>
+</body>
+</html>

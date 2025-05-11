@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxury 3D Anime Academy</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a0a1a;
+            min-height: 100vh;
+            overflow: hidden;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .container {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1000px;
+        }
+
+        .certificate-buttons {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            gap: 4rem;
+            transform-style: preserve-3d;
+        }
+
+        .certificate-btn {
+            padding: 1.5rem 3rem;
+            font-size: 2rem;
+            background: linear-gradient(45deg, 
+                #ff00ff, 
+                #00ffff);
+            border: none;
+            border-radius: 20px;
+            color: white;
+            cursor: pointer;
+            transform-style: preserve-3d;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 0 50px rgba(255, 0, 255, 0.3);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255,255,255,0.1);
+            animation: float 3s ease-in-out infinite, 
+                       glow 2s ease-in-out infinite alternate;
+        }
+
+        .certificate-btn:hover {
+            transform: translateY(-10px) rotateX(15deg) rotateY(15deg) scale(1.2);
+            box-shadow: 0 0 100px rgba(0, 255, 255, 0.5);
+            background: linear-gradient(45deg, 
+                #00ffff, 
+                #ff00ff);
+        }
+
+        .floating-text {
+            position: absolute;
+            bottom: 15%;
+            color: transparent;
+            font-size: 1.5rem;
+            background: linear-gradient(45deg, 
+                #ff00ff, 
+                #00ffff, 
+                #ff00ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            background-size: 400% 400%;
+            animation: gradientFlow 5s ease infinite;
+            white-space: nowrap;
+        }
+
+        .back-btn {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px 20px;
+            border-radius: 15px;
+            backdrop-filter: blur(15px);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 0 30px rgba(255,255,255,0.1);
+        }
+
+        .back-btn:hover {
+            transform: scale(1.1);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotateX(0) rotateY(0); }
+            50% { transform: translateY(-20px) rotateX(5deg) rotateY(5deg); }
+        }
+
+        @keyframes glow {
+            0% { filter: brightness(1); }
+            100% { filter: brightness(1.5); }
+        }
+
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .threejs-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <canvas class="threejs-bg" id="bg"></canvas>
+        
+        <div class="certificate-buttons">
+            <button class="certificate-btn" onclick="window.location.href='certificate1.html'">CERTIFICATE 1</button>
+            <button class="certificate-btn" onclick="window.location.href='certificate2.html'">CERTIFICATE 2</button>
+        </div>
+
+        <div class="floating-text">
+            Fibi, note this is just an example of how your certificate will look like after completing the courses.
+        </div>
+
+        <a href="index.html" class="back-btn">🔙 Back to Main</a>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        // Three.js 3D Background Animation
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas: document.querySelector('#bg'), alpha: true });
+
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+
+        // Create floating geometries
+        const geometries = [];
+        const materials = [];
+        
+        // Add glowing particles
+        const particleGeometry = new THREE.BufferGeometry();
+        const particleCount = 1000;
+        const posArray = new Float32Array(particleCount * 3);
+
+        for(let i = 0; i < particleCount * 3; i++) {
+            posArray[i] = (Math.random() - 0.5) * 10;
+        }
+
+        particleGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+        const particleMaterial = new THREE.PointsMaterial({
+            size: 0.005,
+            color: new THREE.Color('#00ffff'),
+            transparent: true,
+            blending: THREE.AdditiveBlending
+        });
+
+        const particleMesh = new THREE.Points(particleGeometry, particleMaterial);
+        scene.add(particleMesh);
+
+        // Add floating diamonds
+        const diamondGeometry = new THREE.OctahedronGeometry(0.2);
+        const diamondMaterial = new THREE.MeshPhongMaterial({
+            color: 0xffffff,
+            shininess: 100,
+            transparent: true,
+            opacity: 0.8
+        });
+
+        for(let i = 0; i < 50; i++) {
+            const diamond = new THREE.Mesh(diamondGeometry, diamondMaterial);
+            diamond.position.set(
+                (Math.random() - 0.5) * 10,
+                (Math.random() - 0.5) * 10,
+                (Math.random() - 0.5) * 10
+            );
+            scene.add(diamond);
+            geometries.push(diamond);
+        }
+
+        // Lighting
+        const ambientLight = new THREE.AmbientLight(0x404040);
+        scene.add(ambientLight);
+
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
+        directionalLight.position.set(5, 5, 5);
+        scene.add(directionalLight);
+
+        camera.position.z = 5;
+
+        // Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+
+            geometries.forEach((geo, idx) => {
+                geo.rotation.x += 0.01;
+                geo.rotation.y += 0.01;
+                geo.position.y = Math.sin(Date.now() * 0.001 + idx) * 0.5;
+            });
+
+            particleMesh.rotation.y += 0.001;
+
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // Resize handler
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
+</body>
+</html>
