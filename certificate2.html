@@ -6,6 +6,7 @@
   <title>Luxury Certificate</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Open+Sans:wght@300;600&display=swap');
+    /* All existing styles remain unchanged */
     body {
       margin: 0;
       padding: 0;
@@ -113,9 +114,12 @@
     <input type="text" placeholder="Enter recipient name" class="input-name" id="nameInput" />
     <button class="btn" onclick="updateCertificate()">Generate</button>
     <button class="btn" onclick="window.print()">Print</button>
+    <!-- Added Back Button Here -->
+    <button class="btn" onclick="window.location.href='certificate.html'">Back</button>
   </div>
 
   <script>
+    // Existing script remains unchanged
     // Set current date
     const dateElem = document.getElementById('date');
     const today = new Date();
