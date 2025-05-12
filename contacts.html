@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Christian Cinema Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background: #0f0f0f;
+            color: #fff;
+        }
+
+        .header {
+            background: #000;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .logo {
+            font-size: 2rem;
+            color: #ff0000;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            gap: 2rem;
+            padding: 2rem;
+        }
+
+        .video-player {
+            background: #000;
+            border-radius: 15px;
+            overflow: hidden;
+            transform: perspective(1000px) rotateX(3deg);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .video-info {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #1a1a1a;
+            border-radius: 10px;
+        }
+
+        .video-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .video-meta {
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .video-list {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .video-card {
+            background: #1a1a1a;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+        }
+
+        .thumbnail {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-bottom: 3px solid #ff0000;
+        }
+
+        .download-btn {
+            background: #ff0000;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 1rem;
+        }
+
+        .download-btn:hover {
+            background: #cc0000;
+        }
+
+        .search-bar {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            border: none;
+            width: 400px;
+            background: #1a1a1a;
+            color: white;
+        }
+
+        .categories {
+            padding: 1rem 2rem;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .category-tag {
+            background: #1a1a1a;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .category-tag:hover {
+            background: #ff0000;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">FIBI HUB</div>
+        <input type="text" class="search-bar" placeholder="Search Christian movies...">
+        <div class="user-actions">
+            <i class="fas fa-user"></i>
+        </div>
+    </header>
+
+    <div class="categories">
+        <div class="category-tag">Featured</div>
+        <div class="category-tag">Nigerian Movies</div>
+        <div class="category-tag">Christian Drama</div>
+        <div class="category-tag">3D Animation</div>
+    </div>
+
+    <main class="main-content">
+        <div class="main-player">
+            <div class="video-player">
+                <iframe 
+                    src="https://drive.google.com/file/d/1pNIqMM6GbBg-uRpRp0YyqB0zUXOV_Vx6/preview" 
+                    width="100%" 
+                    height="500" 
+                    allow="autoplay"
+                    frameborder="0"
+                    allowfullscreen>
+                </iframe>
+            </div>
+            <div class="video-info">
+                <h1 class="video-title">Land of Fury</h1>
+                <div class="video-meta">
+                    <span>Nigeria, Kebbi State Kalgo</span> • 
+                    <span>Christian Movie</span> • 
+                    <span>3D Animation</span>
+                </div>
+                <button class="download-btn">
+                    <i class="fas fa-download"></i> Download HD
+                </button>
+            </div>
+        </div>
+
+        <div class="video-list">
+            <!-- Repeat this block for other videos -->
+            <div class="video-card">
+                <img src="thumbnail1.jpg" alt="Land of Fury" class="thumbnail">
+                <div class="video-info">
+                    <h3 class="video-title">Land of Fury</h3>
+                    <div class="video-meta">
+                        120K views • 1 week ago
+                    </div>
+                </div>
+            </div>
+            <!-- Add more video cards here -->
+        </div>
+    </main>
+
+    <script>
+        // Add dynamic features
+        document.addEventListener('DOMContentLoaded', () => {
+            // Add hover effect to video cards
+            const cards = document.querySelectorAll('.video-card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    card.style.transform = 'translateY(-5px) scale(1.02)';
+                });
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = '';
+                });
+            });
+
+            // Video download functionality
+            document.querySelector('.download-btn').addEventListener('click', () => {
+                // Add actual download logic here
+                window.location.href = 'path-to-video-file.mp4';
+            });
+        });
+    </script>
+</body>
+</html>
