@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Existing head content remains unchanged -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Certificate of Achievement</title>
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Great+Vibes&display=swap" rel="stylesheet">
   <style>
+    /* All existing styles remain unchanged */
     body {
       margin: 0;
       padding: 0;
@@ -91,9 +93,12 @@
       </div>
     </div>
     <button onclick="printCertificate()">Print Certificate</button>
+    <!-- Added Back Button Below -->
+    <button onclick="window.location.href='certificate.html'">Back</button>
   </div>
 
   <script>
+    // Existing script remains unchanged
     document.addEventListener('DOMContentLoaded', () => {
       const name = prompt('Enter recipient\'s name:', 'Your Name Here');
       document.getElementById('recipientName').innerText = name || 'Recipient Name';
