@@ -5,70 +5,63 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Love Computer Analysis</title>
     <style>
-        body {
-            font-family: 'Courier New', monospace;
-            background: #000;
-            color: #0f0;
-            padding: 20px;
-            max-width: 400px;
-            margin: 0 auto;
-        }
-
-        .container {
-            border: 2px solid #0f0;
-            padding: 20px;
-            margin-top: 20px;
-        }
-
-        input {
-            background: #111;
-            border: 1px solid #0f0;
-            color: #0f0;
-            padding: 10px;
-            margin: 5px 0;
-            width: 100%;
-        }
-
-        button {
+        /* Added Back Button Style */
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
             background: #222;
             border: 1px solid #0f0;
             color: #0f0;
             padding: 10px 20px;
-            margin: 10px 0;
-            cursor: pointer;
+            text-decoration: none;
         }
 
-        button:hover {
+        .back-button:hover {
             background: #0f0;
             color: #000;
         }
 
-        .analysis-result {
-            border-top: 1px dashed #0f0;
-            margin-top: 20px;
-            padding-top: 10px;
+        /* Added Analog Meter Styles */
+        .analog-meter {
+            width: 200px;
+            height: 200px;
+            border: 3px solid #0f0;
+            border-radius: 50%;
+            margin: 20px auto;
+            position: relative;
         }
 
-        .progress-bar {
-            width: 100%;
-            height: 20px;
-            background: #111;
-            margin: 10px 0;
-        }
-
-        .progress {
-            width: 0%;
-            height: 100%;
+        .needle {
+            width: 2px;
+            height: 90px;
             background: #0f0;
-            transition: width 2s;
+            position: absolute;
+            bottom: 50%;
+            left: 50%;
+            transform-origin: bottom;
+            transform: rotate(-90deg);
+            transition: all 2s ease-in-out;
         }
 
-        .error {
-            color: #f00;
-        }
+        /* Existing styles remain unchanged */
+        body { font-family: 'Courier New', monospace; background: #000; color: #0f0; padding: 20px; max-width: 400px; margin: 0 auto; position: relative; }
+        .container { border: 2px solid #0f0; padding: 20px; margin-top: 20px; }
+        input { background: #111; border: 1px solid #0f0; color: #0f0; padding: 10px; margin: 5px 0; width: 100%; }
+        button { background: #222; border: 1px solid #0f0; color: #0f0; padding: 10px 20px; margin: 10px 0; cursor: pointer; }
+        button:hover { background: #0f0; color: #000; }
+        .analysis-result { border-top: 1px dashed #0f0; margin-top: 20px; padding-top: 10px; }
+        .progress-bar { width: 100%; height: 20px; background: #111; margin: 10px 0; }
+        .progress { width: 0%; height: 100%; background: #0f0; transition: width 2s; }
+        .error { color: #f00; }
+        .special-message { animation: glow 1s infinite alternate; color: #0f0; }
+        @keyframes glow { from { text-shadow: 0 0 5px #0f0; } to { text-shadow: 0 0 20px #0f0; } }
     </style>
 </head>
 <body>
+    <!-- Added Back Button -->
+    <a href="cal.html" class="back-button">« BACK</a>
+
     <div class="container">
         <h1>LOVE COMPATIBILITY ANALYZER 1.0</h1>
         
@@ -78,6 +71,10 @@
         <button onclick="startAnalysis()">INITIATE ANALYSIS</button>
         
         <div class="analysis-result" id="result">
+            <!-- Added Analog Meter -->
+            <div class="analog-meter">
+                <div class="needle" id="needle"></div>
+            </div>
             <div class="progress-bar">
                 <div class="progress" id="progress"></div>
             </div>
@@ -88,25 +85,33 @@
     <audio id="sound" src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3"></audio>
 
     <script>
+        // Added Special Names Check
+        const specialNames = ['haruna ibrahim', 'fibi daniel', 'haruna', 'fibi'];
+        
         function startAnalysis() {
             const name1 = document.getElementById('name1').value.trim().toLowerCase();
             const name2 = document.getElementById('name2').value.trim().toLowerCase();
             const progressBar = document.getElementById('progress');
             const output = document.getElementById('output');
             const sound = document.getElementById('sound');
+            const needle = document.getElementById('needle');
 
-            // Validate input
+            // Check for special pair combination
+            const isSpecialPair = (
+                (specialNames.includes(name1) && specialNames.includes(name2)) &&
+                !(name1 === name2)
+            );
+
+            // Existing validation and cooldown logic
             if (!name1 || !name2) {
                 alert('Please enter both names');
                 return;
             }
 
-            // Create pair identifier
             const pairKey = [name1, name2].sort().join('|');
             const currentTime = Date.now();
             const lastAttempt = localStorage.getItem(pairKey);
 
-            // Check cooldown
             if (lastAttempt) {
                 const timeDiff = currentTime - parseInt(lastAttempt);
                 if (timeDiff < 30000) {
@@ -118,29 +123,37 @@
                 }
             }
 
-            // Store new attempt
             localStorage.setItem(pairKey, currentTime.toString());
-
-            // Play sound
             sound.play();
-
-            // Reset UI
             progressBar.style.width = '0%';
             output.innerHTML = '';
 
-            // Simulate analysis
             setTimeout(() => {
                 progressBar.style.width = '100%';
                 
                 setTimeout(() => {
-                    const compatibility = Math.floor(Math.random() * 41) + 60;
-                    output.innerHTML = `
+                    const compatibility = isSpecialPair ? 100 : Math.floor(Math.random() * 41) + 60;
+                    const rotation = (compatibility * 1.8) - 90;
+                    needle.style.transform = `rotate(${rotation}deg)`;
+
+                    let resultHTML = `
                         <h3>ANALYSIS COMPLETE</h3>
                         <p>COMPATIBILITY MATRIX: ${compatibility}%</p>
                         <p>EMOTIONAL SYNC: ${Math.floor(Math.random() * 41) + 60}%</p>
                         <p>LONG-TERM POTENTIAL: ${Math.floor(Math.random() * 41) + 60}%</p>
                         <p>STATUS: ${compatibility > 75 ? 'OPTIMAL MATCH' : 'REQUIRES FURTHER ANALYSIS'}</p>
                     `;
+
+                    if(isSpecialPair) {
+                        resultHTML += `
+                            <div class="special-message">
+                                <h3>Fibi, congratulations!</h3>
+                                <p>You are in Love with Haruna ❤️😊</p>
+                            </div>
+                        `;
+                    }
+
+                    output.innerHTML = resultHTML;
                 }, 2000);
             }, 100);
         }
