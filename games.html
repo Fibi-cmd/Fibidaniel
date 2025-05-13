@@ -1,0 +1,141 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arcadia Gaming Hub</title>
+  <!-- Inline CSS for layout, styling, and 3D hover effects -->
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: url('game background.jpg') no-repeat center center fixed;
+      background-size: cover;
+      overflow-x: hidden;
+    }
+    /* Back button styling */
+    #back-btn {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      text-decoration: none;
+      color: white;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 10px 15px;
+      border-radius: 5px;
+      font-size: 16px;
+      z-index: 100;
+      transition: transform 0.2s;
+    }
+    #back-btn:hover {
+      transform: scale(1.1);
+    }
+    /* Grid container for game thumbnails */
+    .game-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-gap: 30px;
+      padding: 100px 50px;
+    }
+    .game-card {
+      position: relative;
+      width: 100%;
+      padding-bottom: 75%; /* 4:3 aspect ratio */
+      perspective: 1000px;
+      cursor: pointer;
+    }
+    .game-card-inner {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.5s;
+      transform-style: preserve-3d;
+    }
+    .game-card:hover .game-card-inner {
+      transform: rotateY(20deg) rotateX(10deg) scale(1.05);
+    }
+    .game-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 10px;
+      backface-visibility: hidden;
+    }
+    .game-card .label {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.6);
+      color: white;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Back Button -->
+  <a id="back-btn" href="cal.html">&larr; Back to Calculator</a>  <!-- Game Grid -->  <div class="game-grid" id="gameGrid">
+    <!-- Game cards inserted by JavaScript -->
+  </div>  <!-- Inline JavaScript for dynamic content and interactions -->  <script>
+    // Array of game data: filename, thumbnail, display name
+    const games = [
+      {file: 'biblequiz.html', thumb: 'game1.jpg', name: 'Divine Mystery'},
+      {file: 'flight.html', thumb: 'game2.jpg', name: 'Skyward Odyssey'},
+      {file: 'fibi.html', thumb: 'game3.jpg', name: 'Fibi’s Chronicle'},
+      {file: 'runner.html', thumb: 'game4.jpg', name: 'Endless Quest'},
+      {file: 'helicopter.html', thumb: 'game5.jpg', name: 'Chopper Rescue'},
+      {file: 'snake.html', thumb: 'game6.jpg', name: 'Serpent Strike'},
+      {file: 'defence.html', thumb: 'game7.jpg', name: 'Cosmic Guard'},
+      {file: 'slice.html', thumb: 'game8.jpg', name: 'Fruit Frenzy'}
+    ];
+
+    const grid = document.getElementById('gameGrid');
+
+    // Function to create game cards
+    games.forEach(game => {
+      const card = document.createElement('div');
+      card.className = 'game-card';
+      card.onclick = () => window.location.href = game.file;
+
+      const inner = document.createElement('div');
+      inner.className = 'game-card-inner';
+
+      const img = document.createElement('img');
+      img.src = game.thumb;
+      img.alt = game.name;
+
+      const label = document.createElement('div');
+      label.className = 'label';
+      label.textContent = game.name;
+
+      inner.appendChild(img);
+      inner.appendChild(label);
+      card.appendChild(inner);
+      grid.appendChild(card);
+    });
+
+    // 3D tilt effect on mouse move for extra interaction
+    document.querySelectorAll('.game-card').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const midX = rect.width / 2;
+        const midY = rect.height / 2;
+        const rotateY = (x - midX) / midX * 10;
+        const rotateX = - (y - midY) / midY * 10;
+
+        const inner = card.querySelector('.game-card-inner');
+        inner.style.transform = `rotateY(${rotateY}deg) rotateX(${rotateX}deg) scale(1.05)`;
+      });
+      card.addEventListener('mouseleave', () => {
+        const inner = card.querySelector('.game-card-inner');
+        inner.style.transform = '';
+      });
+    });
+  </script></body>
+</html>
