@@ -6,6 +6,7 @@
     <title>Christian Cinema Hub</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* (All previous CSS styles remain unchanged) */
         * {
             margin: 0;
             padding: 0;
@@ -106,7 +107,6 @@
             background: #cc0000;
         }
 
-        /* New Watch More button styles */
         .watch-more-btn {
             background: #007bff;
             margin-left: 10px;
@@ -158,6 +158,8 @@
         <div class="category-tag">Nigerian Movies</div>
         <div class="category-tag">Christian Drama</div>
         <div class="category-tag">3D Animation</div>
+        <!-- New Other Category Button -->
+        <div class="category-tag" onclick="window.open('https://morevid.com', '_blank')">Other</div>
     </div>
 
     <main class="main-content">
@@ -182,7 +184,6 @@
                 <button class="download-btn">
                     <i class="fas fa-download"></i> Download HD
                 </button>
-                <!-- New Watch More Button -->
                 <button class="download-btn watch-more-btn" onclick="window.open('https://morevid.com', '_blank')">
                     <i class="fas fa-external-link-alt"></i> Watch More
                 </button>
@@ -190,7 +191,6 @@
         </div>
 
         <div class="video-list">
-            <!-- Repeat this block for other videos -->
             <div class="video-card">
                 <img src="thumbnail1.jpg" alt="Land of Fury" class="thumbnail">
                 <div class="video-info">
@@ -200,14 +200,11 @@
                     </div>
                 </div>
             </div>
-            <!-- Add more video cards here -->
         </div>
     </main>
 
     <script>
-        // Add dynamic features
         document.addEventListener('DOMContentLoaded', () => {
-            // Add hover effect to video cards
             const cards = document.querySelectorAll('.video-card');
             cards.forEach(card => {
                 card.addEventListener('mouseenter', () => {
@@ -218,9 +215,7 @@
                 });
             });
 
-            // Video download functionality
             document.querySelector('.download-btn').addEventListener('click', () => {
-                // Add actual download logic here
                 window.location.href = 'path-to-video-file.mp4';
             });
         });
