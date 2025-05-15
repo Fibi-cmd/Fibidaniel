@@ -1,49 +1,80 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Arcadia Gaming Hub</title>
-  <!-- Inline CSS for layout, styling, and 3D hover effects -->
   <style>
     body {
       margin: 0;
       padding: 0;
       font-family: Arial, sans-serif;
-      background: url('game background.jpg') no-repeat center center fixed;
-      background-size: cover;
       overflow-x: hidden;
     }
-    /* Back button styling */
-    #back-btn {
+
+    #bg-video {
       position: fixed;
-      top: 20px;
-      left: 20px;
+      right: 0;
+      bottom: 0;
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+      z-index: -1;
+      object-fit: cover;
+      background: #000;
+    }
+
+    /* Button styling */
+    .nav-button {
+      position: fixed;
       text-decoration: none;
       color: white;
       background: rgba(0, 0, 0, 0.5);
-      padding: 10px 15px;
-      border-radius: 5px;
+      padding: 10px 20px;
+      border-radius: 25px;
       font-size: 16px;
       z-index: 100;
-      transition: transform 0.2s;
+      transition: all 0.3s ease;
+      border: 2px solid #fff;
     }
-    #back-btn:hover {
+
+    .nav-button:hover {
       transform: scale(1.1);
+      background: rgba(255, 255, 255, 0.2);
     }
-    /* Grid container for game thumbnails */
+
+    #back-btn {
+      top: 20px;
+      left: 20px;
+    }
+
+    #other-games-btn {
+      top: 20px;
+      right: 20px;
+    }
+
+    #play-btn {
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
     .game-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       grid-gap: 30px;
       padding: 100px 50px;
     }
+
     .game-card {
       position: relative;
       width: 100%;
-      padding-bottom: 75%; /* 4:3 aspect ratio */
+      padding-bottom: 75%;
       perspective: 1000px;
       cursor: pointer;
     }
+
     .game-card-inner {
       position: absolute;
       top: 0;
@@ -53,9 +84,11 @@
       transition: transform 0.5s;
       transform-style: preserve-3d;
     }
+
     .game-card:hover .game-card-inner {
       transform: rotateY(20deg) rotateX(10deg) scale(1.05);
     }
+
     .game-card img {
       width: 100%;
       height: 100%;
@@ -63,6 +96,7 @@
       border-radius: 10px;
       backface-visibility: hidden;
     }
+
     .game-card .label {
       position: absolute;
       bottom: 10px;
@@ -77,11 +111,22 @@
   </style>
 </head>
 <body>
-  <!-- Back Button -->
-  <a id="back-btn" href="cal.html">&larr; Back to Calculator</a>  <!-- Game Grid -->  <div class="game-grid" id="gameGrid">
-    <!-- Game cards inserted by JavaScript -->
-  </div>  <!-- Inline JavaScript for dynamic content and interactions -->  <script>
-    // Array of game data: filename, thumbnail, display name
+  <video autoplay muted loop id="bg-video" playsinline>
+    <source src="https://drive.google.com/uc?id=1JokvbXIVagGVhG9aSA4GnPuT1sOcgxXG&export=download" type="video/mp4">
+    Your browser does not support HTML5 video.
+  </video>
+
+  <!-- Top Navigation Buttons -->
+  <a id="back-btn" class="nav-button" href="cal.html">&larr; Back to Calculator</a>
+  <a id="other-games-btn" class="nav-button" href="https://games.com" target="_blank">Other Games</a>
+
+  <!-- Game Grid -->
+  <div class="game-grid" id="gameGrid"></div>
+
+  <!-- Bottom Play Button -->
+  <a id="play-btn" class="nav-button" href="https://games.com" target="_blank">Play Now</a>
+
+  <script>
     const games = [
       {file: 'biblequiz.html', thumb: 'game1.jpg', name: 'Divine Mystery'},
       {file: 'flight.html', thumb: 'game2.jpg', name: 'Skyward Odyssey'},
@@ -95,7 +140,6 @@
 
     const grid = document.getElementById('gameGrid');
 
-    // Function to create game cards
     games.forEach(game => {
       const card = document.createElement('div');
       card.className = 'game-card';
@@ -118,7 +162,6 @@
       grid.appendChild(card);
     });
 
-    // 3D tilt effect on mouse move for extra interaction
     document.querySelectorAll('.game-card').forEach(card => {
       card.addEventListener('mousemove', e => {
         const rect = card.getBoundingClientRect();
@@ -137,5 +180,6 @@
         inner.style.transform = '';
       });
     });
-  </script></body>
+  </script>
+</body>
 </html>
